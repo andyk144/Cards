@@ -19,6 +19,17 @@ import UIKit
             titleLbl.text = title
         }
     }
+    
+    // SB Vars
+    /**
+     Text of the title label.
+     */
+    @IBInspectable public var overlayColor: UIColor = UIColor(white: 0, alpha: 0.2) {
+        didSet{
+            overlay.backgroundColor = overlayColor
+        }
+    }
+    
     /**
      Max font size the title label.
      */
@@ -48,6 +59,7 @@ import UIKit
     var titleLbl = UILabel ()
     var subtitleLbl = UILabel()
     var categoryLbl = UILabel()
+    var overlay = UIView()
     
     // View Life Cycle
     override public init(frame: CGRect) {
@@ -62,6 +74,7 @@ import UIKit
     override  func initialize() {
         super.initialize()
         
+        backgroundIV.addSubview(overlay)
         backgroundIV.addSubview(titleLbl)
         backgroundIV.addSubview(subtitleLbl)
         backgroundIV.addSubview(categoryLbl)
@@ -72,6 +85,8 @@ import UIKit
         
         //Draw
         super.draw(rect)
+        
+        overlay.backgroundColor = UIColor(white: 0, alpha: 0.2)
         
         categoryLbl.text = category.uppercased()
         categoryLbl.textColor = textColor.withAlphaComponent(0.3)
@@ -112,6 +127,11 @@ import UIKit
         
         let gimme  = LayoutHelper(rect: backgroundIV.bounds)
         
+        overlay.frame = CGRect(x: 0,
+                               y: 0,
+                               width: gimme.X(100),
+                               height: gimme.Y(100))
+        
         categoryLbl.frame = CGRect(x: insets,
                                    y: insets,
                                    width: gimme.X(80),
@@ -130,6 +150,3 @@ import UIKit
     }
     
 }
-
-
-
